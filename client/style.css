@@ -9,3 +9,37 @@ h1 {
     background-color: rgb(174, 229, 174);
     cursor: pointer;
 }
+
+.ground {
+    width: 400px;
+    height: 300px;
+    border: 5px solid black;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#ball {
+    pointer-events: none;
+}
+
+.emotion {
+    font-size: 2rem;
+    position: absolute;
+    pointer-events: none;
+}
+section {
+    background-color: orange;
+    padding: 2rem;
+
+    & article {
+        background-color: dodgerblue;
+        padding: 2rem;
+
+        & p {
+            background-color: hotpink;
+            padding: 2rem;
+        }
+    }
+}

@@ -14,6 +14,9 @@ module.exports = {
         insertLast: true,
         getCss: true,
         setCss: true,
+        addClass: true,
+        removeClass: true,
+        toggleClass: true,
     },
     overrides: [
         {

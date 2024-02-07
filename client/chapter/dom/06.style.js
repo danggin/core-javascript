@@ -40,3 +40,5 @@ console.log(getComputedStyle(first)['backgroundColor']); // getter
 
 console.log(getCss('.first', 'fontSize'));
 setCss('.first', 'fontSize', '30px');
+
+toggleClass('.first', 'title');
