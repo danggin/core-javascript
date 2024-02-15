@@ -4,6 +4,8 @@ import {
     insertLast,
     diceAnimation,
     clearContents,
+    endScroll,
+    memo,
 } from './lib/index.js';
 
 const [rollingButton, recordButton, resetButton] = getNodes(
@@ -17,12 +19,10 @@ const handleRollingDice = (() => {
 
     return () => {
         if (!isClicked) {
-            // 실행
             stopAnimation = setInterval(diceAnimation, 100);
             recordButton.disabled = true;
             resetButton.disabled = true;
         } else {
-            // 정지
             clearInterval(stopAnimation);
             recordButton.disabled = false;
             resetButton.disabled = false;
@@ -35,19 +35,24 @@ const handleRollingDice = (() => {
 let count = 0;
 let total = 0;
 
-function renderRecordItem() {
-    const cube = getNode('#cube');
-    const diceValue = +cube.dataset.dice;
-    const record = getNode('.recordList > tbody');
-    const template = `
+function creatItem(value) {
+    return `
     <tr>
         <td>${++count}</td>
-        <td>${diceValue}</td>
-        <td>${(total += diceValue)}</td>
+        <td>${value}</td>
+        <td>${(total += value)}</td>
     </tr>
     `;
+}
 
-    insertLast(record, template);
+function renderRecordItem() {
+    // const cube = getNode('#cube');
+    const diceValue = +memo('cube').dataset.dice;
+    const record = getNode('.recordList > tbody');
+
+    insertLast(record, creatItem(diceValue));
+
+    endScroll(recordListWrapper);
 }
 
 function handleRecord() {
@@ -63,6 +68,9 @@ function handleReset() {
 
     count = 0;
     total = 0;
+
+    recordButton.disabled = true;
+    resetButton.disabled = true;
 }
 
 rollingButton.addEventListener('click', handleRollingDice);
